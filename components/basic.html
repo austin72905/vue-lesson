@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>基礎元件練習</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/all.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js" integrity="sha384-t7yHmUlwFrLxHXNLstawVRBMeSLcXTbQ5hsd0ifzwGtN7ZF7RZ8ppM7Ldinuoiif" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>    <script src="/javascripts/vendor.js"></script>
+
+  </head>
+  
+  <body class="bg-lighter">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="/">Vue.js 練習手冊</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/basic/dev.html">基礎教學</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/template/basic.html">模板指令</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/components/basic.html">組件</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/vue_set.html">常用 API</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/es6/let_const.html">ES6</a>
+      </li>
+      
+    </ul>
+  </div>
+</nav>
+    <div class="container my-5">
+      <div class="row">
+        
+          <div class="col-md-3">
+            
+<div>
+  <h6 class="text-capitalize text-muted">components</h6>
+  
+    
+      <a href="/components/basic.html"  class="btn btn-block btn-primary active">
+        基礎元件
+      </a>
+    
+  
+    
+      <a href="/components/function_return.html"  class="btn btn-block btn-link">
+        元件必須使用 function return
+      </a>
+    
+  
+    
+      <a href="/components/prop_basic.html"  class="btn btn-block btn-link">
+        由外到內的資料傳遞
+      </a>
+    
+  
+    
+      <a href="/components/prop_adv.html"  class="btn btn-block btn-link">
+        Props 注意事項
+      </a>
+    
+  
+    
+      <a href="/components/prop_type.html"  class="btn btn-block btn-link">
+        Props 的型別
+      </a>
+    
+  
+    
+      <a href="/components/emit.html"  class="btn btn-block btn-link">
+        向外層傳送事件(Data)
+      </a>
+    
+  
+    
+      <a href="/components/slot.html"  class="btn btn-block btn-link">
+        Slot 插槽替換
+      </a>
+    
+  
+    
+      <a href="/components/is.html"  class="btn btn-block btn-link">
+        動態組建切換
+      </a>
+    
+  
+    
+      <a href="/components/eventbus.html"  class="btn btn-block btn-link">
+        Event Bus
+      </a>
+    
+  
+    
+      <a href="/components/homework_component.html"  class="btn btn-block btn-link">
+        作業練習：元件變換
+      </a>
+    
+  
+</div>
+          </div>
+        
+        <div class="col-md-9 post">      
+          <!-- 練習開始 -->
+          <h1 class="mt-0 text-muted">基礎元件練習</h1>
+          
+<div class="alert alert-secondary">
+  <ol class="mb-0">
+    <li>使用 x-template 建立表格元件</li>
+    <li>使用 is 掛載 template</li>
+    <li>使用 prop 傳遞資料</li>
+    <li>說明局部註冊及全域註冊</li>
+  </ol>
+</div>
+
+<div id="app">
+  <table class="table">
+    <thead>
+    </thead>
+    <tbody>
+      <!--試著將這部分元件化，之後就可重複使用-->
+      <!-- <tr v-for="(item, key) in data" :item="item" :key="key">
+        <td>{{ item.name }}</td>
+        <td>{{ item.cash }}</td>
+        <td>{{ item.icash }}</td>
+      </tr> -->
+      <!--我們自定義的元件-->
+      <!--元件內層的資料與外層是分開的，
+      要透過props 將資料傳到內層-->
+
+      <!--第一版...但只會顯示純文字-->
+      <!-- <row-component v-for="(item, key) in data" :passval="item" :key="key"></row-component> -->
+      <!--tbody裡面就是要放tr，tr裡面要放td、th ，所以元件不能直接寫在裡面，要用is ，用來動態切換模板使用-->
+      <tr is="row-component" v-for="(item, key) in data" :passval="item" :key="key">
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--註冊x-template-->
+<script type="text/x-template" id="rowCompTemplate">
+  <tr >
+    <td>{{ passval.name }}</td>
+    <td>{{ passval.cash }}</td>
+    <td>{{ passval.icash }}</td>
+  </tr>
+
+</script>
+
+<script>
+//建立元件
+//全域註冊的方式
+// Vue.component('row-component',{
+  
+//   //使用x-template方式建立模板
+//   template:'#rowCompTemplate' ,//x-template 等等指向的id
+//   props:['passval'], //記得在自訂義元件上綁定(也不能大寫...有夠爛)，最後再把它傳入x-template
+  
+// });
+
+//局部註冊方式
+let notGlobalTemp = {
+  //使用x-template方式建立模板
+  template:'#rowCompTemplate' ,//x-template 等等指向的id
+  props:['passval'], //記得在自訂義元件上綁定(也不能大寫...有夠爛)，最後再把它傳入x-template
+};
+
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    data: [
+      {
+        name: '小明',
+        cash: 100,
+        icash: 500,
+      },
+      {
+        name: '杰倫',
+        cash: 10000,
+        icash: 5000,
+      },
+      {
+        name: '漂亮阿姨',
+        cash: 500,
+        icash: 500,
+      },
+      {
+        name: '老媽',
+        cash: 10000,
+        icash: 100,
+      },
+    ]
+  },
+  //局部註冊元件
+  //只有這個應用程式能夠使用
+  components:{
+    'row-component': notGlobalTemp
+  }
+});
+
+//元件
+
+//依照畫面，可以將網頁分成 標頭、主要內容、邊邊的導覽列... 將這些畫面分別管理，已達重複使用的效果 ，稱為元件
+
+//元件裡的資料是互相獨立的，也可互相傳遞， prop:將資料向內傳遞(資料更新就會觸發)、 emit event(透過觸發事件)，將資料向外傳遞
+
+//1. 局部註冊:只有註冊的應用程式能使用  在vue物件裡面 新增一個components
+
+//2. 全域註冊:所有應用程式都能使用 Vue.component
+
+//3. x-template
+
+//4. 使用props將元件外層的元素傳入內層，元件"綁定的名稱"不能有大寫=>  再由內層傳到 x-template，內層的資料名改成  元件"綁定的名稱"
+
+//5. is 來動態切換template  遇到html tbody時
+</script>
+
+<!-- 
+<script type="text/x-template" id="row-component">
+  <tr>
+    <td>{{ item.name }}</td>
+    <td>{{ item.cash }}</td>
+    <td>{{ item.icash }}</td>
+  </tr>
+</script>
+
+var child = {
+  props: ['item'],
+  template: '#row-component'
+}
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    data: [
+      {
+        name: '小明',
+        cash: 100,
+        icash: 500,
+      },
+      {
+        name: '杰倫',
+        cash: 10000,
+        icash: 5000,
+      },
+      {
+        name: '漂亮阿姨',
+        cash: 500,
+        icash: 500,
+      },
+      {
+        name: '老媽',
+        cash: 10000,
+        icash: 100,
+      },
+    ]
+  },
+  components: {
+    "row-component": child
+  } 
+});
+--> 
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

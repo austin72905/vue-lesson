@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>陣列方法</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/all.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js" integrity="sha384-t7yHmUlwFrLxHXNLstawVRBMeSLcXTbQ5hsd0ifzwGtN7ZF7RZ8ppM7Ldinuoiif" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>    <script src="/javascripts/vendor.js"></script>
+
+  </head>
+  
+  <body class="bg-lighter">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="/">Vue.js 練習手冊</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/basic/dev.html">基礎教學</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/template/basic.html">模板指令</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/components/basic.html">組件</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/vue_set.html">常用 API</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/es6/let_const.html">ES6</a>
+      </li>
+      
+    </ul>
+  </div>
+</nav>
+    <div class="container my-5">
+      <div class="row">
+        
+          <div class="col-md-3">
+            
+<div>
+  <h6 class="text-capitalize text-muted">es6</h6>
+  
+    
+      <a href="/es6/let_const.html"  class="btn btn-block btn-link">
+        let, const 基礎教學
+      </a>
+    
+  
+    
+      <a href="/es6/spread_operator.html"  class="btn btn-block btn-link">
+        展開與其餘
+      </a>
+    
+  
+    
+      <a href="/es6/destructuring.html"  class="btn btn-block btn-link">
+        解構賦值
+      </a>
+    
+  
+    
+      <a href="/es6/shorthand.html"  class="btn btn-block btn-link">
+        縮寫
+      </a>
+    
+  
+    
+      <a href="/es6/arrow_function.html"  class="btn btn-block btn-link">
+        箭頭函式與傳統函式之差異
+      </a>
+    
+  
+    
+      <a href="/es6/template_string.html"  class="btn btn-block btn-link">
+        Template String
+      </a>
+    
+  
+    
+      <a href="/es6/array_function.html"  class="btn btn-block btn-primary active">
+        陣列方法
+      </a>
+    
+  
+</div>
+          </div>
+        
+        <div class="col-md-9 post">      
+          <!-- 練習開始 -->
+          <h1 class="mt-0 text-muted">陣列方法</h1>
+          
+<div class="alert alert-secondary">
+  <ol class="mb-0">
+    <li>請跟隨課程完成此章節。</li>
+  </ol>
+</div>
+
+
+<script>
+// #1 樣板字串
+// 將以下改寫成 Template String 寫法
+const people = [
+  {
+    name: '小明',
+    money: 500
+  },
+  {
+    name: '漂亮阿姨',
+    money: 3000
+  },
+  {
+    name: '杰倫',
+    money: 60000
+  },
+  {
+    name: '老媽',
+    money: 70000
+  }
+];
+
+//es6 語法
+//陣列方法
+
+//1. forEach 與 map
+//   (1)map 有return值(陣列)
+//   (2)會將原本陣列的值取出來，return 一個新的陣列
+//   (3)如果沒有寫return，會回傳 [undefined, undefined, undefined, undefined]  看你的item數
+//   (4)不太適合用來過濾 if>2000之類的，因為會回傳undefined
+
+//2. filter
+//   (1)會回傳一個陣列[]
+//   (2)可以下判斷式 return true
+//   (3)直接return false 會回傳一個空[]
+
+//3. find
+//   (1)回傳的是item的值 (第一個符合條件的) obj、str...
+//   (2)適合來判斷單一條件
+//   (3)直接return false 會打印undefined
+
+//4. every
+//   (1)回傳一個 bool
+//   (2)"所有"條件都符合，才會是true
+
+//5. some
+//   (1)回傳一個 bool
+//   (2)"只要有一個"條件符合，就會是true
+
+//6. reduce
+//   (1)適合用來加總
+//   (2)會歷遍[]裡面的值，從[index]開始運算，並將結果暫存到prev中，在與[index+1]繼續做運算，直到歷遍所有元素
+
+// forEach 與 map
+//兩者差異: map 有return值(陣列)
+// 將所有物件增加 icash 有多少金額的欄位
+people.forEach(function(item,index,arr){
+  //item : 值
+  //index : 索引
+  //arr : 陣列本身
+  //console.log(item,index,arr);
+
+  //為裡面的值新增屬性
+  item.icash=item.money+200;
+  console.log(item);
+});
+
+console.log("map的差異")
+//會將原本陣列的值取出來，return 一個新的陣列
+//如果沒有寫return，會回傳 [undefined, undefined, undefined, undefined]  看你的item數
+//所以map 不太適合用來過濾 if>2000之類的，因為會回傳undefined
+let newP=people.map(function(item,index,arr){
+  return{
+    ...item,
+    icash: item.money+500
+  }
+});
+console.log(newP);
+
+console.log("-----filter-----");
+// filter
+//會回傳一個陣列[]
+//可以下判斷式
+//直接return false 會回傳一個空[]
+
+// 挑出金額少於 5000 的物件
+let filterP=people.filter(function(item,index){
+  if(item.money<5000){
+    return true;
+  }
+})
+console.log(filterP);
+
+console.log("-----find-----");
+// find
+//回傳的是item的值 (第一個符合條件的) obj、str...
+//適合來判斷單一條件
+//直接return false 會打印undefined
+
+// 1. 找到金額 = 500 的物件
+// 2. 找到 > 5000 的物件
+
+//retrun an obj
+let findP=people.find(function(item,index){
+  if(item.money==500){
+    return true;
+  }
+  
+});
+console.log(findP);
+console.log("-----every-----");
+// every
+//回傳一個 bool
+//"所有"條件都符合，才會是true
+
+// 1. 所有物件是否都超過 10000 元
+// 2. 是否所有物件超過 300 元
+let everyP=people.every(function(item,index){
+  return item.money>10000;
+});
+console.log(everyP);
+
+// some
+//回傳一個 bool
+//"只要有一個"條件符合，就會是true
+
+// 1. 是否有物件超過 10000 元
+// 2. 是否有物件持有金額少於 300元
+let someP=people.some(function(item,index){
+  return item.money>10000;
+});
+console.log(someP);
+
+console.log("-----reduce-----")
+// reduce
+//適合用來加總
+//會歷遍[]裡面的值，從[index]開始運算，並將結果暫存到prev中，在與[index+1]繼續做運算，直到歷遍所有元素
+
+// 所有人價錢的總和
+let totalNum=people.reduce(function(prev,item,index){
+  //prev: 前一個的運算結果，會從,後面取預設值
+  //item: 當前的值
+  //index: 索引
+  //打印前一個值
+  console.log(prev);
+
+  return prev+item.money;// 這段可以理解為 用for迴圈 prev+=item[i].money
+},0);
+
+console.log(totalNum);
+//比大小
+
+let compNum=people.reduce(function(prev,item,index){
+  console.log(prev);
+  //他會不斷的前一個與後一的不斷比較，直到取出最大
+  return Math.max(prev,item.money);
+},0);
+console.log("max money ="+compNum);
+
+</script> 
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

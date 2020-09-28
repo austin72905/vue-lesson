@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>let, const ES6 基礎教學</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/all.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js" integrity="sha384-t7yHmUlwFrLxHXNLstawVRBMeSLcXTbQ5hsd0ifzwGtN7ZF7RZ8ppM7Ldinuoiif" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>    <script src="/javascripts/vendor.js"></script>
+
+  </head>
+  
+  <body class="bg-lighter">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="/">Vue.js 練習手冊</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/basic/dev.html">基礎教學</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/template/basic.html">模板指令</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/components/basic.html">組件</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/vue_set.html">常用 API</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/es6/let_const.html">ES6</a>
+      </li>
+      
+    </ul>
+  </div>
+</nav>
+    <div class="container my-5">
+      <div class="row">
+        
+          <div class="col-md-3">
+            
+<div>
+  <h6 class="text-capitalize text-muted">es6</h6>
+  
+    
+      <a href="/es6/let_const.html"  class="btn btn-block btn-primary active">
+        let, const 基礎教學
+      </a>
+    
+  
+    
+      <a href="/es6/spread_operator.html"  class="btn btn-block btn-link">
+        展開與其餘
+      </a>
+    
+  
+    
+      <a href="/es6/destructuring.html"  class="btn btn-block btn-link">
+        解構賦值
+      </a>
+    
+  
+    
+      <a href="/es6/shorthand.html"  class="btn btn-block btn-link">
+        縮寫
+      </a>
+    
+  
+    
+      <a href="/es6/arrow_function.html"  class="btn btn-block btn-link">
+        箭頭函式與傳統函式之差異
+      </a>
+    
+  
+    
+      <a href="/es6/template_string.html"  class="btn btn-block btn-link">
+        Template String
+      </a>
+    
+  
+    
+      <a href="/es6/array_function.html"  class="btn btn-block btn-link">
+        陣列方法
+      </a>
+    
+  
+</div>
+          </div>
+        
+        <div class="col-md-9 post">      
+          <!-- 練習開始 -->
+          <h1 class="mt-0 text-muted">let, const ES6 基礎教學</h1>
+          
+<div class="alert alert-secondary">
+  <ol class="mb-0">
+    <li>請跟隨課程完成此章節。</li>
+  </ol>
+</div>
+
+
+<script>
+
+//#1 var、 let 差異
+
+//雖然還沒有宣告
+// undefined  記憶體有準備空間
+// not definded  無
+
+//var hoisting特性，宣告變數時，再編譯階段就會被放入記憶體
+//所以console會出現undefined 而不是not definded
+console.log(mom); //undefined
+var mom = '老媽';
+(function () {
+  console.log(mom); //老媽
+})();
+
+//如果使用let 宣告 
+//console.log(letMom) //not definded
+let letMom = 'let老媽';
+(function () {
+  console.log(letMom); //let老媽
+})();
+
+//var 、 let 作用域差異
+//var  作用域 func scope
+//let  作用域 block  {}
+
+//案例一
+function varMing () {
+
+  //var 作用域是整個func，所以裡面宣告的會覆蓋外面的
+  var ming = '小明';
+  if (true) {
+    var ming = '杰哥';  
+    // 這裡的 ming 依然是外層的小明，所以小明即將被取代
+  }
+  console.log(ming);  // '杰哥'
+}
+varMing()
+
+function varMinglet () {
+  //let 作用域是 {} ，所以內層不會影響外層
+  let ming = '小明';
+  if (true) {
+    let ming = 'let杰哥';  
+    
+  }
+  console.log(ming);  // '小明'
+}
+varMinglet()
+//案例二
+
+//var 宣告
+for (var i = 0; i < 10; i++) {
+  console.log(i);
+  //這是一個非同步方法
+  //所以setTimeout 裡的 i 會吃到全域變數 =10
+  //window.i確認
+  setTimeout(function () {
+    console.log('這執行第' + i + '次');
+  }, 10);
+}
+//結果=>  會先打印0~9 ，然後 這執行第10次 *10次
+
+//=>上面這段可以理解成
+//setTimeout 裡的 i 會吃到全域變數 =10
+// for (var i = 0; i < 10; i++) {
+//   console.log(i); 
+// }
+
+// setTimeout(function () {
+//     console.log('這執行第' + i + '次');
+//   }, 10);
+
+//使用let宣告
+
+for (let i = 0; i < 10; i++) {
+  console.log(i);
+  setTimeout(function () {
+    console.log('這執行第' + i + '次');
+  }, 10);
+}
+//結果=> 會先打印0~9 ，然後 這執行第0~9次
+
+//#2 const
+//const 宣告常數 ，之後無法再更改
+const ming = '鐵錚錚男子漢';
+
+//const 宣告的物件 ，裡面的屬性是可以更改的
+//物件是傳參考，只要不是修改參考，都可以，修改裡面的值是OK的
+const family = {
+  mom: '老媽',
+  me: '小明',
+  sister: '小橙'
+};
+family.father = '爸爸';
+console.log(family);
+//family={};   這樣就是修改參考，會報錯
+
+//#3 bonus
+//如何使用var 寫出 結果=> 會先打印0~9 ，然後 這執行第0~9次
+//使用立即函式
+for(var i=0;i<10;i++){
+  console.log(i);
+  //這邊用一個立即函式包住setTimeout
+  (function (i) {
+    
+    setTimeout(()=>{
+      
+      console.log('這執行第' + i + '次');
+    },10);
+  })(i);
+}
+  
+
+
+
+//es6 語法
+
+//1. var 、 let 差異
+//   (1) 作用域不同 var : func scope 、  let : block 以{}為分界
+//   (2) 使用var定意義的變數，如果外面沒有包func，會變成全域變數，難以控管
+
+//2. const
+//   (1) 宣告常數，之後不能再修改
+//   (2) 宣告物件，裡面的屬性值，可以修改  (因為物件式傳參，只要不要改參考都可以 )  改參考 : family={} 這樣會報錯
+
+
+</script> 
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
